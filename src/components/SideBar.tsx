@@ -7,15 +7,19 @@ import { Button } from '../components/Button';
 
 import '../styles/sidebar.scss';
 
+interface SideBarProps {
+  selectedGenreId: number;
+  setSelectedGenreId: React.Dispatch<React.SetStateAction<number>>;
+}
+
 interface GenreResponseProps {
   id: number;
   name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
   title: string;
 }
 
-export function SideBar() {
+export function SideBar({ selectedGenreId, setSelectedGenreId }: SideBarProps) {
   const [genres, setGenres] = useState<GenreResponseProps[]>([]);
-  const [selectedGenreId, setSelectedGenreId] = useState(1);
 
   function handleClickButton(id: number) {
     setSelectedGenreId(id);
@@ -26,6 +30,7 @@ export function SideBar() {
       setGenres(response.data);
     });
   }, []);
+
   return (
     <nav className='sidebar'>
       <span>
